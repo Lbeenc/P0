@@ -1,18 +1,19 @@
+CXX := g++
+CXXFLAGS := -Wall -Wextra -Wpedantic -std=c++17 -O2
 
-CC=gcc
-CFLAGS=-std=c11 -Wall -Wextra -O2
-OBJS=P0.o tree.o
+OBJS := P0.o tree.o
+BIN := P0
 
-all: P0
+all: $(BIN)
 
-P0: $(OBJS)
-	$(CC) $(CFLAGS) -o P0 $(OBJS)
+$(BIN): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
-P0.o: P0.c tree.h node.h
-	$(CC) $(CFLAGS) -c P0.c
+P0.o: P0.cpp node.h tree.h
 
-tree.o: tree.c tree.h node.h
-	$(CC) $(CFLAGS) -c tree.c
+tree.o: tree.cpp node.h tree.h
 
 clean:
-	rm -f $(OBJS) P0 out.preorder out.inorder out.postorder
+	rm -f $(OBJS) $(BIN) *.preorder *.inorder *.postorder
+
+.PHONY: all clean
